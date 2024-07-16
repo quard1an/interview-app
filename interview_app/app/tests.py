@@ -8,4 +8,3 @@ class ItemModelTest(TestCase):
     def test_item_creation(self):
         self.assertEqual(self.item.name, "Test Item")
         self.assertEqual(self.item.price, 10.00)
-

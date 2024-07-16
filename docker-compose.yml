@@ -10,11 +10,34 @@ services:
 
   web:
     build: .
-    command: gunicorn myproject.wsgi:application --bind 0.0.0.0:8000
+    command: gunicorn interview_app.wsgi:application --bind 0.0.0.0:8000
     volumes:
       - .:/app
     ports:
       - "8000:8000"
     depends_on:
       - db
+      - redis
+      - celery_worker
+      - celery_beat
 
+  redis:
+    image: redis:6.0
+
+  celery_worker:
+    build: .
+    command: celery -A interview_app worker --loglevel=info
+    volumes:
+      - .:/app
+    depends_on:
+      - redis
+      - db
+
+  celery_beat:
+    build: .
+    command: celery -A interview_app beat --loglevel=info
+    volumes:
+      - .:/app
+    depends_on:
+      - redis
+      - db
