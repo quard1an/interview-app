@@ -31,4 +31,4 @@ jobs:
         run: ls interview_app/
 
       - name: Run tests
-        run: python3 manage.py test
+        run: python3 interview_app/manage.py test
