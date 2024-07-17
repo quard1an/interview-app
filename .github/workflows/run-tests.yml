@@ -27,5 +27,8 @@ jobs:
       - name: Install dependencies
         run: python3 -m pip install -r requirements.txt
 
+      - name: Show files
+        run: ls
+
       - name: Run tests
         run: python3 -m interview_app/manage.py test
